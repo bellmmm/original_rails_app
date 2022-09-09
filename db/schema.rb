@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_09_080353) do
+ActiveRecord::Schema.define(version: 2022_09_09_100536) do
 
   create_table "products", force: :cascade do |t|
-    t.string "product_URL"
+    t.string "product_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["product_URL"], name: "index_products_on_product_URL", unique: true
+    t.index ["product_name"], name: "index_products_on_product_name", unique: true
   end
 
   create_table "users", force: :cascade do |t|
