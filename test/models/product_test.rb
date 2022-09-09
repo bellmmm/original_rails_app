@@ -19,4 +19,10 @@ class ProductTest < ActiveSupport::TestCase
     @product.product_URL = "a" * 254 + "test.com"
     assert_not @product.valid?
   end
+
+  test "product_URL should be unique" do
+    duplicate_product = @product.dup
+    @product.save
+    assert_not duplicate_product.valid?
+  end
 end
