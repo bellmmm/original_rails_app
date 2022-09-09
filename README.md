@@ -101,7 +101,7 @@ dislikes {
 
 products {
   integer id PK
-  varchar shohin_url 
+  varchar product_URL 
 }
 
 composed {
