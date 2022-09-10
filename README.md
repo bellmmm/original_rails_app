@@ -101,7 +101,7 @@ dislikes {
 
 products {
   integer id PK
-  varchar product_URL 
+  varchar name 
 }
 
 composed {
@@ -119,7 +119,7 @@ features {
 ### usersテーブル
 ユーザーのid、名前、e-mailアドレス等を保持しているテーブルです。
 ### productsテーブル
-商品のidと商品ページのURLを保持しているテーブルです。
+商品のidと名前を保持しているテーブルです。
 ### featuresテーブル
 服の特徴(例：ラウンドネック)とそのidを保持しているテーブルです。
 ### dislikesテーブル
