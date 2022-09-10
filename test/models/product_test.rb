@@ -3,24 +3,24 @@ require 'test_helper'
 class ProductTest < ActiveSupport::TestCase
   
   def setup
-    @product = Product.new(product_name: "testname")
+    @product = Product.new(name: "testname")
   end
   
   test "should be valid" do
     assert @product.valid?
   end
 
-  test "product_name should be present" do
-    @product.product_name = ""
+  test "name should be present" do
+    @product.name = ""
     assert_not @product.valid?
   end
 
-  test "product_name should not be too long" do
-    @product.product_name = "a" * 254 + "testname"
+  test "name should not be too long" do
+    @product.name = "a" * 254 + "testname"
     assert_not @product.valid?
   end
 
-  test "product_name should be unique" do
+  test "name should be unique" do
     duplicate_product = @product.dup
     @product.save
     assert_not duplicate_product.valid?
