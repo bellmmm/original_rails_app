@@ -1,7 +1,10 @@
 <div>
-product id
-<%= @product.id%>
-product name
-<%=@product.name%>
-
-<%= image_tag("products/#{@product.name}.png", alt: "products/#{@product.name}.png") %>
+  product name:
+  <%=@product.name%>
+  <% if File.exist?"app/assets/images/products/#{@product.name}.png" %>
+    <li class="product_image">
+      <%= image_tag("products/#{@product.name}.png", alt: "products/#{@product.name}.png") %> 
+    </li> 
+  <% else %>
+  <% end %>
+</div>
