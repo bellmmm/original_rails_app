@@ -13,11 +13,12 @@
   - [x] ログイン後のhomeでタイル型に商品を並べて表示する
 - [ ] 【dislikesモデル】
   - [ ] モデルを作る(モデルのバリデーション付き)
-  - [ ] コントローラーを作る
-  - [ ] viewを作る(homeにdislikes要素を持たないproducts一覧を表示
-  - [ ] seedsにdislikes要素を入れる
-  - [ ] fixtureにdislikes要素を入れる
-  - [ ] testを作る(ユーザーのdislikes要素を持たない商品のみhomeに表示されている)
+  - [ ] コントローラーを作る(テストを通してユーザーが好まない商品をdislikesテーブルに保存)
+  - [ ] コントローラーのテストを作る
+  - [ ] viewを作る(テスト未実施のユーザーのhomeにテストスタートボタンを表示、ボタンを押すとテストのページを表示する)
+  - [ ] seedsにdislikes関係を入れる
+  - [ ] fixtureにdislikes関係を入れる
+  - [ ] testを作る(integration:テスト未実施ユーザーhomeにテストボタン表示、テストボタン押した後にテスト画面表示、テスト終了後＆テスト実施済みユーザーのhome表示)
 
 
 ## アプリケーション名
@@ -116,7 +117,7 @@ users {
 
 dislikes {
   integer user_id FK
-  integer shohin_id FK
+  integer product_id FK
 }
 
 products {
@@ -125,7 +126,7 @@ products {
 }
 
 composed {
-  integer shohin_id FK
+  integer product_id FK
   integer feature_id FK
 }
 
@@ -148,3 +149,26 @@ features {
 商品のidと特徴のidを保持しているテーブルです。その商品がどの特徴を持っているのかが保存されています。
 
 
+# メソッド
+## dislikesテーブル
+ |  メソッド  |  用途  |
+ | ---- | ---- |
+ |  dislike.user  |  Dislikeに紐づいたUserオブジェクトを返す  |
+ |  user.dislikes  |  UserのDislikeの集合を返す  |
+ |  user.dislikes.create(arg)  |  userに紐づいたdislikeを作成する  |
+ |  user.dislikes.create!(arg)  |  userに紐づいたdislikeを作成する(失敗時に例外を発生)  |
+ |  user.dislikes.build(arg)  |  userに紐づいた新しいdislikeオブジェクトを返す  |
+ |  user.dislikes.find_by(id: 1)  |  userに紐づいて、idが１であるdislikeを検索する  |
+ 
+
+
+# RESTfulなルート
+## Productsリソース
+|  HTTPリクエスト  |  URL  |  アクション  |  名前付きルート  |  用途  |
+|  ----  |  ----  |  ----  |  ----  |  ----  |
+|  GET  |  /products/1  |  show  |  product_path(product)  |  特定の商品を表示するページ  |
+
+## Featureリソース
+|  HTTPリクエスト  |  URL  |  アクション  |  名前付きルート  |  用途  |
+|  ----  |  ----  |  ----  |  ----  |  ----  |
+|    |    |    |    |    |
