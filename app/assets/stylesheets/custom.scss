@@ -217,3 +217,13 @@ input {
     border-bottom: 1px solid $gray-lighter;
   }
 }
+
+/* Products display */
+
+.products {
+  display: grid;
+  gap: 26px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  margin-top: 6%;
+  margin-bottom: 50px;
+}

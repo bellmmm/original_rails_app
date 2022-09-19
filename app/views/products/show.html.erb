@@ -1,10 +1,15 @@
-<div>
-  product name:
-  <%=@product.name%>
-  <% if File.exist?"app/assets/images/products/#{@product.name}.png" %>
-    <li class="product_image">
-      <%= image_tag("products/#{@product.name}.png", alt: "products/#{@product.name}.png") %> 
-    </li> 
-  <% else %>
-  <% end %>
-</div>
+
+
+<div id="product-<%= @product.id%>">
+    <span class="product-name">
+      <p>Product name: <%= @product.name %></p>
+    </span>
+    <span class="product-image">
+      <% if File.exist?"app/assets/images/products/#{@product.name}.png" %>
+        <div class="product_image">
+          <%= image_tag("products/#{@product.name}.png", alt: "products/#{@product.name}.png", width: "200px") %>
+        </div> 
+      <% else %>
+      <% end %>
+    </span>
+  </div>
