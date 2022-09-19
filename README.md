@@ -1,5 +1,17 @@
 # ユーザーの好みに合わせて商品を表示するアプリケーション
 
+# todo
+- [x] 【productモデル モデルを作る(モデルのバリデーションテスト付き)】
+- [x] 【productモデル コントローラーを作る】
+- [x] 【productモデル viewを作る(ユーザー一覧を参考にeach doからブラッシュアップ)】
+- [x] 【productモデル seedを作る】
+- [x] 【productモデル fixtureを作る】
+- [x] 【productモデル 商品画像を準備して保存する】
+- [x] 【productモデル testを作る(ログイン後に限りhomeページに商品一覧が表示されているか)】
+- [x] 【productモデル ログイン後のhomeで商品一覧を1ページデータ数指定でページネーションする】
+- [ ] 【productモデル ログイン後のhomeで縦横に商品を並べて表示する】
+
+
 ## アプリケーション名
 「Original App」
 
@@ -101,7 +113,7 @@ dislikes {
 
 products {
   integer id PK
-  varchar shohin_url 
+  varchar name 
 }
 
 composed {
@@ -119,7 +131,7 @@ features {
 ### usersテーブル
 ユーザーのid、名前、e-mailアドレス等を保持しているテーブルです。
 ### productsテーブル
-商品のidと商品ページのURLを保持しているテーブルです。
+商品のidと名前を保持しているテーブルです。
 ### featuresテーブル
 服の特徴(例：ラウンドネック)とそのidを保持しているテーブルです。
 ### dislikesテーブル
@@ -127,4 +139,4 @@ features {
 ### composedテーブル
 商品のidと特徴のidを保持しているテーブルです。その商品がどの特徴を持っているのかが保存されています。
 
-  
+

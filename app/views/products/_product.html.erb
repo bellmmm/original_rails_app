@@ -1,0 +1,14 @@
+
+
+  <div id="product-<%= product.id%>">
+    <span class="product-name"><%= link_to product.name, product_path(product) %></span>
+    <span class="product-image">
+      <% if File.exist?"app/assets/images/products/#{product.name}.png" %>
+        <div class="product_image">
+          <%= image_tag("products/#{product.name}.png", alt: "products/#{product.name}.png", width: "200px") %>
+        </div> 
+      <% else %>
+      <% end %>
+    </span>
+  </div>
+

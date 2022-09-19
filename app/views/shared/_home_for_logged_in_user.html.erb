@@ -1,0 +1,14 @@
+<div class="row">
+    <aside class="col-md-4">
+      <section class="user_info">
+        <%= render 'shared/user_info' %>
+      </section>
+    </aside>
+    <div class="col-md-8">
+      <h3>Products</h3>
+      <div class="products">
+        <%= render @products %>
+      </div>
+      <%= will_paginate @products %>
+    </div>
+  </div>
