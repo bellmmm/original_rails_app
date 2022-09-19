@@ -9,7 +9,7 @@ class ProductsOnHomeTest < ActionDispatch::IntegrationTest
   test "home for gest users" do
     get root_path
     assert_template 'static_pages/home'
-    assert_select "ol.products", count: 0
+    assert_select "div.products", count: 0
   end
 
   test "home for logged in users" do
