@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_10_072347) do
+ActiveRecord::Schema.define(version: 2022_09_19_094851) do
+
+  create_table "dislikes", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "product_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_dislikes_on_product_id"
+    t.index ["user_id", "product_id"], name: "index_dislikes_on_user_id_and_product_id", unique: true
+    t.index ["user_id"], name: "index_dislikes_on_user_id"
+  end
 
   create_table "products", force: :cascade do |t|
     t.string "name"
