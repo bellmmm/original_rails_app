@@ -1,0 +1,17 @@
+<div id="test_product-<%= test_product.id%>">
+  <%= form_with(model: current_user.dislike_products.build, local: true) do |f| %>
+    <div><%= hidden_field_tag :product_id, test_product.id %></div>
+    <span class="test_product-image">
+      <% if File.exist?"app/assets/images/products/#{test_product.name}.png" %>
+        <div class="test_product_image">
+          <%= image_tag("products/#{test_product.name}.png", alt: "products/#{test_product.name}.png", width: "200px") %>
+        </div> 
+      <% else %>
+      <% end %>
+    </span>
+     <%= f.submit "dislike", class: "btn btn-primary" %>
+  <% end %>
+</div>
+
+  
+
