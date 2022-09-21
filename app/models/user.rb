@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :dislikes, dependent: :destroy
+  has_many :dislike_products, through: :dislikes, source: :product
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save :downcase_email
   before_create :create_activation_digest
@@ -62,6 +63,21 @@ class User < ApplicationRecord
   # パスワード再設定の期限が切れている場合はtrueを返す
   def password_reset_expired?
     reset_sent_at < 2.hours.ago
+  end
+
+  # 商品をdislikeに設定する
+  def set_dislike(product)
+    dislike_products << product
+  end
+
+  # 商品をdislikeから解除する
+  def unset_dislike(product)
+    dislike_products.find_by(id: product.id).destroy
+  end
+
+  # 現在のユーザーがdislikeにせっていしていたらtrueを返す
+  def setting_dislike?(product)
+    dislike_products.include?(product)
   end
   
   private
