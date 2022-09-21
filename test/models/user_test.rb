@@ -74,6 +74,15 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.authenticated?(:remember, '')
   end
   
+  test "should set and unset dislike_products" do
+    michael = users(:michael)
+    product = products(:test01)
+    assert_not michael.setting_dislike?(product)
+    michael.set_dislike(product)
+    assert michael.setting_dislike?(product)
+    michael.unset_dislike(product)
+    assert_not michael.setting_dislike?(product)
+  end
 
 
 end
