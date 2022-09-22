@@ -72,7 +72,7 @@ class User < ApplicationRecord
 
   # 商品をdislikeから解除する
   def unset_dislike(product)
-    dislike_products.find_by(id: product.id).destroy
+    dislikes.find_by(product_id: product.id).destroy
   end
 
   # 現在のユーザーがdislikeにせっていしていたらtrueを返す
