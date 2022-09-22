@@ -5,13 +5,13 @@
       </section>
     </aside>
     <div class="col-md-8">
-    <% if current_user.dislike_products.any? %>
-      <h3>Products</h3>
-      <div class="products">
-        <%= render @products %>
-      </div>
-      <%= will_paginate @products %>
-    <% else %>
+    <%# <% if current_user.dislike_products.any? %> %>
+      <%# <h3>Products</h3> %>
+      <%# <div class="products"> %>
+        <%# <%= render @products %> %>
+      <%# </div> %>
+      <%# <%= will_paginate @products %> %>
+    <%# <% else %> %>
       <h2>Test</h2>
       <h3>Please put "dislike" bottom when you don't like the product.</h3>
         <div class="test_products">
@@ -19,6 +19,6 @@
           <%= render partial: 'shared/test_product', locals: {test_product:test_product} %>
         <% end %>
         </div>
-      <% end %>
+      <%# <% end %> %>
     </div>
   </div>
