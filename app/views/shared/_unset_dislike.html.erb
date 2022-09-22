@@ -1,6 +1,6 @@
 <%= form_with(model: current_user.dislikes.find_by(product_id: test_product.id), 
                                                         html: {method: :delete }, 
                                                         local: false) do |f| %>
-  <div><%= hidden_field_tag :product_id, test_product.id %></div> 
+  
   <%= f.submit "cancel dislike", class: "btn btn-default" %>
 <% end %>
