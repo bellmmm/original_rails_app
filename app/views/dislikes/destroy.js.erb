@@ -1,0 +1,1 @@
+$("#dislike_button-<%= @test_product.id%>").html("<%= escape_javascript(render partial:'shared/set_dislike', locals: {test_product: @test_product} ) %>");

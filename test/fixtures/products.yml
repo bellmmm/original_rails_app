@@ -8,7 +8,7 @@ test01:
 
 <% 40.times do |n| %>
 test0<%=n+1%>:
- id: <%=n%>
+ id: <%=n+1%>
  name:  <%= "Product_test #{n+1}" %>
 <% end %>
 

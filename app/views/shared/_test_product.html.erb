@@ -1,0 +1,20 @@
+<div id="test_product-<%= test_product.id%>">
+  <span class="test_product-image">
+        <% if File.exist?"app/assets/images/products/#{test_product.name}.png" %>
+          <div class="test_product_image">
+            <%= image_tag("products/#{test_product.name}.png", alt: "products/#{test_product.name}.png", width: "200px") %>
+          </div> 
+        <% else %>
+        <% end %>
+  </span>
+  <div id="dislike_button-<%= test_product.id%>">
+    <% if current_user.setting_dislike?(test_product)%>
+      <%= render partial: 'shared/unset_dislike', locals: {test_product: test_product}  %>
+    <% else %> 
+      <%= render partial: 'shared/set_dislike', locals: {test_product: test_product}  %>
+    <% end %> 
+  </div>
+</div>
+
+  
+

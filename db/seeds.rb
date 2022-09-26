@@ -33,3 +33,12 @@ Product.create!(name:  "Sample_product01")
     Product.create!(name:  name)
   end
 end
+
+# 以下のdislike関係を作成する
+user = User.second
+other_user = User.third
+products = Product.all
+some_products = products[2..10]
+other_products = products[10..20]
+some_products.each { |some_products| user.set_dislike(some_products)}
+other_products.each { |some_products| other_user.set_dislike(other_products) }

@@ -1,15 +1,26 @@
 # ユーザーの好みに合わせて商品を表示するアプリケーション
 
 # todo
-- [x] 【productモデル モデルを作る(モデルのバリデーションテスト付き)】
-- [x] 【productモデル コントローラーを作る】
-- [x] 【productモデル viewを作る(ユーザー一覧を参考にeach doからブラッシュアップ)】
-- [x] 【productモデル seedを作る】
-- [x] 【productモデル fixtureを作る】
-- [x] 【productモデル 商品画像を準備して保存する】
-- [x] 【productモデル testを作る(ログイン後に限りhomeページに商品一覧が表示されているか)】
-- [x] 【productモデル ログイン後のhomeで商品一覧を1ページデータ数指定でページネーションする】
-- [ ] 【productモデル ログイン後のhomeで縦横に商品を並べて表示する】
+- [x] 【productモデル】
+  - [x] モデルを作る(モデルのバリデーションテスト付き)
+  - [x] コントローラーを作る
+  - [x] viewを作る(ユーザー一覧を参考にeach doからブラッシュアップ)
+  - [x] seedsを作る
+  - [x] fixtureを作る
+  - [x] 商品画像を準備して保存する
+  - [x] testを作る(ログイン後に限りhomeページに商品一覧が表示されているか)
+  - [x] ログイン後のhomeで商品一覧を1ページデータ数指定でページネーションする
+  - [x] ログイン後のhomeでタイル型に商品を並べて表示する
+- [x] 【dislikesモデル】
+  - [x] モデルを作る(モデルのバリデーション付き)
+  - [x] dislikeボタンにAjaxを適用する
+  <!-- - [ ] dislike_productsを除いた商品一覧のページ -->
+  - [x] ログイン後のhomeにテストを表示
+  - [x] テスト商品にdislikeボタンを付けて、ボタンを押すと該当商品をdislikesテーブルに保存
+  - [x] ボタン押印でdislike保存のテストを作る(integration)
+  - [x] seedsにdislikes関係を入れる
+  - [x] fixtureにdislikes関係を入れる
+  
 
 
 ## アプリケーション名
@@ -108,7 +119,7 @@ users {
 
 dislikes {
   integer user_id FK
-  integer shohin_id FK
+  integer product_id FK
 }
 
 products {
@@ -117,7 +128,7 @@ products {
 }
 
 composed {
-  integer shohin_id FK
+  integer product_id FK
   integer feature_id FK
 }
 
@@ -140,3 +151,49 @@ features {
 商品のidと特徴のidを保持しているテーブルです。その商品がどの特徴を持っているのかが保存されています。
 
 
+# メソッド
+## dislikesテーブル
+ |  メソッド  |  用途  |
+ | ---- | ---- |
+ |  dislike.user  |  Dislikeに紐づいたUserオブジェクトを返す  |
+ |  user.dislikes  |  UserのDislikeの集合を返す  |
+ |  user.dislikes.create(arg)  |  userに紐づいたdislikeを作成する  |
+ |  user.dislikes.create!(arg)  |  userに紐づいたdislikeを作成する(失敗時に例外を発生)  |
+ |  user.dislikes.build(arg)  |  userに紐づいた新しいdislikeオブジェクトを返す  |
+ |  user.dislikes.find_by(id: 1)  |  userに紐づいて、idが１であるdislikeを検索する  |
+ 
+
+
+## ユーザー、dislike、productモデルの関連付けによって使えるようになったメソッドのまとめ
+ |  メソッド  |  用途  |
+ | ---- | ---- |
+ |  dislike.user  |  Dislikeに関連づいたユーザーを返す  |
+ |  dislike.product  |  Dislikeに関連づいた商品を返す  |
+ |  user.dislikes.create(product_id: 1)  |  userと紐付けてid1の商品とdislike関係を作成/登録する  |
+ |  user.dislikes.create!(product_id: 1)  |  userと紐付けてid1の商品とdislike関係を作成/登録する(失敗時にエラーを出力)  |
+ |  user.dislikes.build(product_id: 1)  |  userと紐付けた、id1の商品との新しいDislikeオブジェクトを返す  |
+ 
+
+
+# RESTfulなルート
+## Productsリソース
+|  HTTPリクエスト  |  URL  |  アクション  |  名前付きルート  |  用途  |
+|  ----  |  ----  |  ----  |  ----  |  ----  |
+|  GET  |  /products/1  |  show  |  product_path(product)  |  特定の商品を表示するページ  |
+
+## Featureリソース
+|  HTTPリクエスト  |  URL  |  アクション  |  名前付きルート  |  用途  |
+|  ----  |  ----  |  ----  |  ----  |  ----  |
+|    |    |    |    |    |
+
+## Dislikesリソース
+|  HTTPリクエスト  |  URL  |  アクション  |  名前付きルート  |  用途  |
+|  ----  |  ----  |  ----  |  ----  |  ----  |
+|  POST  |  /dislikes  |  create  |  dislikes_path  |  dislike関係を作成する  |
+|  DELETE  |  /dislikes/1  |  destroy  |  dislike_path(dislike)  |  dislikesテーブルのidが１のdislike関係を削除する  |
+
+<!-- 
+## カスタムルール(routeでresouces :users do)で提供するルート
+|  HTTPリクエスト  |  URL  |  アクション  |  名前付きルート  |  用途  |
+|  ----  |  ----  |  ----  |  ----  |  ----  |
+|  GET  |  /users/1/dislike_products  |  dislike_product  |  dislike_products_user_path(1)  |    | -->
