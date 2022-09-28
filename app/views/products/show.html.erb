@@ -1,15 +1,26 @@
 
 
 <div id="product-<%= @product.id%>">
-    <span class="product-name">
-      <p>Product name: <%= @product.name %></p>
-    </span>
-    <span class="product-image">
-      <% if File.exist?"app/assets/images/products/#{@product.name}.png" %>
-        <div class="product_image">
-          <%= image_tag("products/#{@product.name}.png", alt: "products/#{@product.name}.png", width: "200px") %>
-        </div> 
-      <% else %>
+  <aside class="col-md-4">
+      <span class="product-name">
+        <p>Product name: <%= @product.name %></p>
+      </span>
+      <span class="product-image">
+        <% if File.exist?"app/assets/images/products/#{@product.name}.png" %>
+          <div class="product_image">
+            <%= image_tag("products/#{@product.name}.png", alt: "products/#{@product.name}.png", width: "200px") %>
+          </div> 
+        <% else %>
+        <% end %>
+     </span>
+  </aside>
+  <div class="col-md-8">
+    <h2>Elements</h2>
+    <h4>This product has below features.</h4>
+    <ul class=elements>
+      <% @product.elements.each do |element| %>
+        <li> <%= element.feature %> </li>
       <% end %>
-    </span>
+    </ul>
   </div>
+</div>
