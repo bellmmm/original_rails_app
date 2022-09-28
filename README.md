@@ -20,7 +20,22 @@
   - [x] ボタン押印でdislike保存のテストを作る(integration)
   - [x] seedsにdislikes関係を入れる
   - [x] fixtureにdislikes関係を入れる
-  
+- [x] 【featuresモデル】
+  - [x] モデルを作る(バリデーション付き)
+  <!-- - [ ] コントローラーを作る -->
+  - [x] seedsを作る
+  - [x] fixtureを作る
+- [x] 【composedモデル】
+  - [x] モデルを作る(バリデーション付き)
+  - [x] seedsを作る
+  - [x] fixtureを作る
+  - [x] testを作る(商品ページにその商品が持つ要素：featureが表示されているか)
+- [ ] 【products/dislikes/composed/featuresモデル間の連携】
+  - [ ] viewを作る(dislikeテストで重複して選択された要素：ユーザーのdislikes要素を持たない商品をお勧め商品として一覧表示する)
+  - [ ] testを作る(ログイン後のユーザーのユーザーのdislikes要素を除いた商品を表示)
+ 
+
+
 
 
 ## アプリケーション名
@@ -164,7 +179,7 @@ features {
  
 
 
-## ユーザー、dislike、productモデルの関連付けによって使えるようになったメソッドのまとめ
+## ユーザー、dislike、productモデルの関連付けによって使えるようになったメソッドのまとめ(dislike_productsはユーザーがdislike関係を持つ商品のオブジェクト)
  |  メソッド  |  用途  |
  | ---- | ---- |
  |  dislike.user  |  Dislikeに関連づいたユーザーを返す  |
@@ -172,8 +187,23 @@ features {
  |  user.dislikes.create(product_id: 1)  |  userと紐付けてid1の商品とdislike関係を作成/登録する  |
  |  user.dislikes.create!(product_id: 1)  |  userと紐付けてid1の商品とdislike関係を作成/登録する(失敗時にエラーを出力)  |
  |  user.dislikes.build(product_id: 1)  |  userと紐付けた、id1の商品との新しいDislikeオブジェクトを返す  |
+ | ---- | ---- |
+ | user.dislike_products.include?(product) | ユーザーのdislikeしている商品の集合にproductが含まれるか確認する |
+ | user.dislike_products.find(product) | ユーザーと商品のdislikeの関連付けを通して商品のオブジェクトを探す |
+ | ---- | ---- |
  
-
+## product、composed、featureモデルの関連付けによって使えるようになったメソッドのまとめ(elementsは商品がcomposed関係を持つ特徴のオブジェクト)
+ |  メソッド  |  用途  |
+ | ---- | ---- |
+ |  composed.product  |  composedに関連づいた商品を返す  |
+ |  composed.feature  |  composedに関連づいた特徴を返す  |
+ |  product.composeds.create(feature_id: 1)  |  商品と紐付けてid1の特徴とcomposed関係を作成/登録する  |
+ |  product.composeds.create!(feature_id: 1)  |  商品と紐付けてid1の特徴とcomposed関係を作成/登録する(失敗時にエラーを出力)  |
+ |  product.composeds.build(feature_id: 1)  |  商品と紐付けた、id1の特徴との新しいComposedオブジェクトを返す  |
+ | ---- | ---- |
+ | product.elements.include?(feature) | 商品のcomposedしている商品の集合にelementが含まれるか確認する |
+ | product.elements.find(feature) | 商品と特徴のcomposedの関連付けを通して特徴のオブジェクトを探す |
+ | ---- | ---- |
 
 # RESTfulなルート
 ## Productsリソース
