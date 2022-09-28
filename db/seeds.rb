@@ -39,6 +39,44 @@ user = User.second
 other_user = User.third
 products = Product.all
 some_products = products[2..10]
-other_products = products[10..20]
+other_products = products[11..20]
 some_products.each { |some_products| user.set_dislike(some_products)}
-other_products.each { |some_products| other_user.set_dislike(other_products) }
+other_products.each { |other_products| other_user.set_dislike(other_products) }
+
+#以下のfeatureを作成する
+Feature.create!(feature:  "long_sleeve")
+Feature.create!(feature:  "short_sleeve")
+Feature.create!(feature:  "no_sleeve")
+Feature.create!(feature:  "vivid_color")
+Feature.create!(feature:  "pale_color")
+Feature.create!(feature:  "natural_color")
+Feature.create!(feature:  "black/white_color")
+Feature.create!(feature:  "boat-neck")
+Feature.create!(feature:  "off-the-shoulder-neck")
+Feature.create!(feature:  "deep-neck")
+Feature.create!(feature:  "halter-neck")
+Feature.create!(feature:  "jewel-neck")
+Feature.create!(feature:  "turtle-neck")
+Feature.create!(feature:  "square-neck")
+Feature.create!(feature:  "v-neck")
+Feature.create!(feature:  "collared-neck")
+Feature.create!(feature:  "tight-fit")
+Feature.create!(feature:  "medium-fit")
+Feature.create!(feature:  "loose-fit")
+
+
+# Feature.create!(feature:  "bohemian-style")
+# Feature.create!(feature:  "romantic-style")
+# Feature.create!(feature:  "modern-style")
+# Feature.create!(feature:  "casual-style")
+# Feature.create!(feature:  "classic-style")
+# Feature.create!(feature:  "city-style")
+
+# 以下のcomposed関係を作成する
+product_1 = Product.first
+product_2 = Product.second
+features = Feature.all
+some_features = features[0..5]
+other_features = features[6..10]
+some_features.each { |feature| product_1.set_composed(feature)}
+other_features.each { |feature| product_2.set_composed(feature) }
