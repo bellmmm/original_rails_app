@@ -3,7 +3,7 @@ require 'test_helper'
 class ProductTest < ActiveSupport::TestCase
   
   def setup
-    @product = Product.new(name: "testname")
+    @product = products(:test01)
   end
   
   test "should be valid" do
@@ -24,5 +24,16 @@ class ProductTest < ActiveSupport::TestCase
     duplicate_product = @product.dup
     @product.save
     assert_not duplicate_product.valid?
+  end
+
+  
+  test "should set and unset composed" do
+    product = products(:test01)
+    feature = features(:feat_1)
+    assert_not product.setting_composed?(feature)
+    product.set_composed(feature)
+    assert product.setting_composed?(feature)
+    product.unset_composed(feature)
+    assert_not product.setting_composed?(feature)
   end
 end
