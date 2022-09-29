@@ -75,7 +75,7 @@ class User < ApplicationRecord
     dislikes.find_by(product_id: product.id).destroy
   end
 
-  # 現在のユーザーがdislikeにせっていしていたらtrueを返す
+  # 現在のユーザーがdislikeに設定していたらtrueを返す
   def setting_dislike?(product)
     dislike_products.include?(product)
   end

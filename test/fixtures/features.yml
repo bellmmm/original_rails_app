@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+feat_1:
+  feature: long_sleeve
+
+# feat_2:
+#   feature: short_sleeve
+
+# feat_3:
+#   feature: no_sleave
+
+# feat_4:
+#   feature: vivid_color
+
+# feat_5:
+#   feature: pale_color
+
+# feat_6:
+#   feature: natural_color
+
+# feat_7:
+#   feature: black/white_color
+
+# feat_8:
+#   feature: feat_8
+
+# feat_9:
+#   feature: feat_9
+
+# feat_10:
+#   feature: feat_10
