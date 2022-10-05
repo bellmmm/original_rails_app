@@ -10,6 +10,50 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     redirect_to root_url and return unless @user.activated
+    dislike_feat_sql = <<-"EOS"
+      SELECT 
+        count(products.id) as product_id_num,
+        features.id as feature_id,
+        features.feature as feature
+      FROM products 
+        INNER JOIN dislikes 
+          ON products.id=dislikes.product_id 
+        INNER JOIN users 
+          ON dislikes.user_id=users.id
+        INNER JOIN composeds
+          ON products.id=composeds.product_id
+        INNER JOIN features
+          ON composeds.feature_id=features.id
+      WHERE users.id=#{@user.id}
+      GROUP BY features.id
+      HAVING product_id_num >= 2
+    EOS
+    @dislike_features = ActiveRecord::Base.connection.select_all(dislike_feat_sql)
+
+    like_product_sql = <<-"EOS"
+      select products.* from products
+      where products.id not in(
+        select composeds.product_id from composeds
+        inner join(    
+          select 
+            features.id as feature_id
+          from products 
+          inner join dislikes 
+            on products.id=dislikes.product_id 
+          inner join users 
+            on dislikes.user_id=users.id
+          inner join composeds
+            on products.id=composeds.product_id
+          inner join features
+            on composeds.feature_id=features.id
+          where users.id=#{@user.id}
+          group by features.id
+          having count(products.id) >=2
+        ) as FT
+        on composeds.feature_id=FT.feature_id
+      )
+    EOS
+    @recommend_products = Product.paginate_by_sql(like_product_sql, page: params[:page], per_page:12)
   end
 
   def new
