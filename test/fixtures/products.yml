@@ -6,9 +6,9 @@ test01:
  name: Product_test1
 
 
-<% 40.times do |n| %>
-test0<%=n+1%>:
- id: <%=n+1%>
- name:  <%= "Product_test #{n+1}" %>
-<% end %>
+# <% 40.times do |n| %>
+# test0<%=n+1%>:
+#  id: <%=n+1%>
+#  name:  <%= "Product_test #{n+1}" %>
+# <% end %>
 
