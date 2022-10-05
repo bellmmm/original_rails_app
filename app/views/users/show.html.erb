@@ -11,5 +11,25 @@
       </h1>
     </section>
   </aside>
+  <section class="row">
+    <h3>You may dislike following features.</h3>
+    <div class="col-md-8">      
+      <ul class="user_dislike_features">
+        <% @dislike_features.each do |dislike_feature| %>
+          <li><%= dislike_feature["feature"] %></li>
+        <% end %>
+     </ul>
+    </div>
+  </section>
+
+    <h3>You may like following products.</h3>
+    <div class="col-md-8">      
+      <ul class="recommend_products">
+        <% @recommend_products.each do |recommend_product| %>
+          <%= render partial: 'shared/recommend_product', locals: {recommend_product:recommend_product} %>
+        <% end %>
+     </ul>
+    </div>
+  <%= will_paginate @recommend_products %>  
 </div>
   
