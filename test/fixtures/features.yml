@@ -3,14 +3,14 @@
 feat_1:
   feature: long_sleeve
 
-# feat_2:
-#   feature: short_sleeve
+feat_2:
+  feature: short_sleeve
 
-# feat_3:
-#   feature: no_sleave
+feat_3:
+  feature: no_sleave
 
-# feat_4:
-#   feature: vivid_color
+feat_4:
+  feature: vivid_color
 
 # feat_5:
 #   feature: pale_color
