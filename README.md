@@ -30,9 +30,9 @@
   - [x] seedsを作る
   - [x] fixtureを作る
   - [x] testを作る(商品ページにその商品が持つ要素：featureが表示されているか)
-- [ ] 【products/dislikes/composed/featuresモデル間の連携】
-  - [ ] viewを作る(dislikeテストで重複して選択された要素：ユーザーのdislikes要素を持たない商品をお勧め商品として一覧表示する)
-  - [ ] testを作る(ログイン後のユーザーのユーザーのdislikes要素を除いた商品を表示)
+- [x] 【products/dislikes/composed/featuresモデル間の連携】
+  - [x] viewを作る(dislikeテストで重複して選択された要素：ユーザーのdislikes要素を持たない商品をお勧め商品として一覧表示する)
+  - [x] testを作る(ログイン後のユーザーのユーザーのdislikes要素、dislike要素を除いた商品を表示)
  
 
 
@@ -222,8 +222,45 @@ features {
 |  POST  |  /dislikes  |  create  |  dislikes_path  |  dislike関係を作成する  |
 |  DELETE  |  /dislikes/1  |  destroy  |  dislike_path(dislike)  |  dislikesテーブルのidが１のdislike関係を削除する  |
 
-<!-- 
-## カスタムルール(routeでresouces :users do)で提供するルート
-|  HTTPリクエスト  |  URL  |  アクション  |  名前付きルート  |  用途  |
-|  ----  |  ----  |  ----  |  ----  |  ----  |
-|  GET  |  /users/1/dislike_products  |  dislike_product  |  dislike_products_user_path(1)  |    | -->
+
+# 5つのテーブル情報を利用するSQL文
+## ユーザーのdislike_productsの共通要素情報(2回以上選択された要素の、選択された回数、featu_id、feature)を表示するSQL文
+  select 
+    count(products.id) as product_id_num,
+    features.id as feature_id,
+    features.feature as feature
+  from products 
+  inner join dislikes 
+    on products.id=dislikes.product_id 
+  inner join users 
+    on dislikes.user_id=users.id
+  inner join composeds
+    on products.id=composeds.product_id
+  inner join features
+    on composeds.feature_id=features.id
+  where users.id=2
+  group by features.id
+  having product_id_num >= 2
+
+## ユーザーのdislike_productsの共通要素(2回以上選択された要素)を持たない商品一覧を表示するSQL文
+  select products.* from products
+    where products.id not in(
+      select composeds.product_id from composeds
+      inner join(    
+        select 
+          features.id as feature_id
+        from products 
+        inner join dislikes 
+          on products.id=dislikes.product_id 
+        inner join users 
+          on dislikes.user_id=users.id
+        inner join composeds
+          on products.id=composeds.product_id
+        inner join features
+          on composeds.feature_id=features.id
+        where users.id=2
+        group by features.id
+        having count(products.id) >=2
+      ) as FT
+      on composeds.feature_id=FT.feature_id
+    )

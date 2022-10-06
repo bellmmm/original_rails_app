@@ -1,26 +1,26 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  product_id: 1
-  feature_id: 1
+  product: test01
+  feature: feat_1
 
-# two:
-#   product_id: 1
-#   feature_id: 2
+two:
+  product: test01
+  feature: feat_2
 
 
-# three:
-#   product_id: 1
-#   feature_id: 3
+three:
+  product: test01
+  feature: feat_3
 
-# four:
-#   product_id: 1
-#   feature_id: 7
+four:
+  product: test02
+  feature: feat_1
 
-# five:
-#   product_id: 2
-#   feature_id: 1
+five:
+  product: test02
+  feature: feat_4
 
-# six:
-#   product_id: 3
-#   feature_id: 2
+six:
+  product: test03
+  feature: feat_4

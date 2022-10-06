@@ -38,7 +38,7 @@ end
 user = User.second
 other_user = User.third
 products = Product.all
-some_products = products[2..10]
+some_products = products[0..10]
 other_products = products[11..20]
 some_products.each { |some_products| user.set_dislike(some_products)}
 other_products.each { |other_products| other_user.set_dislike(other_products) }
@@ -75,8 +75,14 @@ Feature.create!(feature:  "loose-fit")
 # 以下のcomposed関係を作成する
 product_1 = Product.first
 product_2 = Product.second
+product_3 = Product.third
+product_4 = Product.fourth
 features = Feature.all
-some_features = features[0..5]
-other_features = features[6..10]
+some_features = features[0..15]
+other_features = features[4..10]
+another_features = features[8..15]
+last_features = features[1..18]
 some_features.each { |feature| product_1.set_composed(feature)}
 other_features.each { |feature| product_2.set_composed(feature) }
+another_features.each { |feature| product_3.set_composed(feature) }
+last_features.each { |feature| product_4.set_composed(feature) }
