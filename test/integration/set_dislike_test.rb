@@ -6,6 +6,10 @@ class SetDislikeTest < ActionDispatch::IntegrationTest
     @user = users(:michael)
     log_in_as (@user)
     @test_product = products(:test01)
+    # dislikeのfixtureで設定されているtest01とのdislike関係を削除する
+    dislike = @user.dislikes.find_by(product_id: @test_product.id)
+    delete dislike_path(dislike)
+    assert_not @user.dislike_products.include?(@test_product)
   end
 
   test "should set_dislike a test product" do
