@@ -28,7 +28,7 @@ class UsersController < ApplicationController
       GROUP BY features.id
       HAVING product_id_num >= 2
     EOS
-    @dislike_features = ActiveRecord::Base.connection.select_all(dislike_feat_sql)
+    @dislike_features = Feature.find_by_sql(dislike_feat_sql)
 
     like_product_sql = <<-"EOS"
       select products.* from products
