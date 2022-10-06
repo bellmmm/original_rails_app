@@ -30,9 +30,9 @@
   - [x] seedsを作る
   - [x] fixtureを作る
   - [x] testを作る(商品ページにその商品が持つ要素：featureが表示されているか)
-- [ ] 【products/dislikes/composed/featuresモデル間の連携】
-  - [ ] viewを作る(dislikeテストで重複して選択された要素：ユーザーのdislikes要素を持たない商品をお勧め商品として一覧表示する)
-  - [ ] testを作る(ログイン後のユーザーのユーザーのdislikes要素を除いた商品を表示)
+- [x] 【products/dislikes/composed/featuresモデル間の連携】
+  - [x] viewを作る(dislikeテストで重複して選択された要素：ユーザーのdislikes要素を持たない商品をお勧め商品として一覧表示する)
+  - [x] testを作る(ログイン後のユーザーのユーザーのdislikes要素、dislike要素を除いた商品を表示)
  
 
 
