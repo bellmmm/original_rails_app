@@ -90,6 +90,16 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
 
+  def guest_login
+    if current_user
+      redirect_to current_user, alert: "You have already logged in."
+    else
+      @user = User.guest_login
+      log_in(@user)
+      redirect_to root_url
+      flash[:success] = "Successfylly logged in as Guest user."
+    end
+  end
 
   private
 
