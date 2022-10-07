@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :products
   resources :dislikes, only: [:create, :destroy]
+  get "guest_login", to: "users#guest_login"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   
 end
