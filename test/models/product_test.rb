@@ -30,6 +30,9 @@ class ProductTest < ActiveSupport::TestCase
   test "should set and unset composed" do
     product = products(:test01)
     feature = features(:feat_1)
+    # fixtureにセッティングされているcomposed関係を削除する
+    product.unset_composed(feature) if product.setting_composed?(feature)
+
     assert_not product.setting_composed?(feature)
     product.set_composed(feature)
     assert product.setting_composed?(feature)
