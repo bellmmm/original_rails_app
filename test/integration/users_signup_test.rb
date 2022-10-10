@@ -49,6 +49,15 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
       assert is_logged_in?
     end
 
-
-  
+    test "signup as Guest user" do
+      assert_difference 'User.count', 1 do
+        get guest_login_path                         
+      end
+      user = assigns(:user)
+      follow_redirect!
+      assert_template 'static_pages/home'
+      assert is_logged_in?
+      assert_includes user.email, "#{user.id}"
+    end
+      
 end

@@ -4,11 +4,12 @@ class User < ApplicationRecord
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save :downcase_email
   before_create :create_activation_digest
-  validates :name, presence: true, length:{maximum:50}
+  validates :name, presence: true, length:{maximum:50}, if: :require_validation?
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, presence:true, length:{maximum:255}, 
              format:{with: VALID_EMAIL_REGEX},
-             uniqueness: {case_sensitive: false}
+             uniqueness: {case_sensitive: false},
+             if: :require_validation?
   has_secure_password
   validates :password, presence:true, length:{minimum:6}, allow_nil: true
   
@@ -79,7 +80,12 @@ class User < ApplicationRecord
   def setting_dislike?(product)
     dislike_products.include?(product)
   end
-  
+
+  # ゲストユーザーのemailをid番号に変える
+  def guest_email_make_unique
+    update_attribute(:email, "#{self.id}@example.com")
+  end
+
   private
 
     # メールアドレスをすべて小文字にする
@@ -92,4 +98,24 @@ class User < ApplicationRecord
       self.activation_token  = User.new_token
       self.activation_digest = User.digest(activation_token)
     end
+
+    #ゲストユーザーのみバリデーションを解除する(falseを返す)
+    def require_validation?
+      return true if self.guest == false || self.guest == 0
+      false
+    end
+
+    # ゲストユーザーを作成する
+    def self.guest_login
+      random_pass = SecureRandom.base36
+      guest_user = create!(name:"Guest user",
+              email: "#{random_pass}@example.com",
+              password: random_pass,
+              password_confirmation: random_pass,
+              activated: true,
+              activated_at: Time.zone.now,
+              guest: true)
+      guest_user.guest_email_make_unique
+      return guest_user
+    end  
 end

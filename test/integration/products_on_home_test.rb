@@ -34,9 +34,10 @@ test "home for logged in users(test)" do
     end
   end
 
+  
 
   test "order of products should be ascending by id" do
-    assert_equal products(:test01), Product.first
+    assert_equal [products(:test01),products(:test02),products(:test03)].min, Product.first
   end
 
 end

@@ -77,6 +77,10 @@ class UserTest < ActiveSupport::TestCase
   test "should set and unset dislike_products" do
     michael = users(:michael)
     product = products(:test01)
+    # dislikeのfixtureで設定されているtest01とのdislike関係を削除する
+    michael.unset_dislike(product) if michael.setting_dislike?(product)
+    assert_not michael.setting_dislike?(product)
+        
     assert_not michael.setting_dislike?(product)
     michael.set_dislike(product)
     assert michael.setting_dislike?(product)
