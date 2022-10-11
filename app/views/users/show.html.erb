@@ -12,17 +12,23 @@
     </section>
   </aside>
   <section class="row">
-    <h3>You may dislike following features.</h3>
+    <h3><%=@user.name%> may dislike following features.</h3>
     <div class="col-md-8">      
       <ul class="user_dislike_features">
-        <% @dislike_features.each do |dislike_feature| %>
-          <li><%= dislike_feature.feature %></li>
+        <% if @dislike_features.any? %>
+          <% @dislike_features.each do |dislike_feature| %>
+            <li><%= dislike_feature.feature %></li>
+          <% end %>
+        <% else %>
+        <p>No features are selected.</p>
+        <p>You might miss our test or might not choose enough products.  If not, please add 1 more dislike product on the test.</p>
+        <p>Please try <%= link_to "Test", user_path(@user) %> again.</p>
         <% end %>
      </ul>
     </div>
   </section>
 
-    <h3>Products you'll love</h3>
+    <h3>Products <%=@user.name%> will love</h3>
     <div class="col-md-8">      
       <ul class="recommend_products">
         <% @recommend_products.each do |recommend_product| %>

@@ -1,8 +1,10 @@
 <div id="test_product-<%= test_product.id%>">
   <span class="test_product-image">
-        <% if File.exist?"app/assets/images/products/#{test_product.name}.png" %>
+        <% if File.exist?"app/assets/images/products/#{test_product.name}.jpg" %>
           <div class="test_product_image">
-            <%= image_tag("products/#{test_product.name}.png", alt: "products/#{test_product.name}.png", width: "200px") %>
+            <%= image_tag("products/#{test_product.name}.jpg", alt: "products/#{test_product.name}.jpg", width: "200px") %>
+            <p class="photographer">Photo by: <%=test_product.photo_by%></p>
+            
           </div> 
         <% else %>
         <% end %>

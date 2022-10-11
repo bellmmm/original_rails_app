@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_06_141308) do
+ActiveRecord::Schema.define(version: 2022_10_10_112504) do
 
   create_table "composeds", force: :cascade do |t|
     t.integer "product_id"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 2022_10_06_141308) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "photo_by"
     t.index ["name"], name: "index_products_on_name", unique: true
   end
 

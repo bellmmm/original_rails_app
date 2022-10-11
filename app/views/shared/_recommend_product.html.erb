@@ -3,9 +3,10 @@
 <div id="recommend_product-<%= recommend_product.id%>">
   <span class="recommend_product-name"><%= link_to recommend_product.name, product_path(recommend_product) %></span>
   <span class="recommend_product-image">
-        <% if File.exist?"app/assets/images/products/#{recommend_product.name}.png" %>
+        <% if File.exist?"app/assets/images/products/#{recommend_product.name}.jpg" %>
           <div class="recommend_product_image">
-            <%= image_tag("products/#{recommend_product.name}.png", alt: "products/#{recommend_product.name}.png", width: "200px") %>
+            <%= image_tag("products/#{recommend_product.name}.jpg", alt: "products/#{recommend_product.name}.jpg", width: "200px") %>
+            <p class="photographer">Photo by: <%=recommend_product.photo_by%></p>
           </div> 
         <% else %>
         <% end %>

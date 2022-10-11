@@ -2,18 +2,21 @@
 
 
 test01:
- name: Product_test1
+  name: Product_test1
+  photo_by: Photographer1
 
 
 test02:
- name: Product_test2
+  name: Product_test2
+  photo_by: Photographer2
 
 test03:
- name: Product_test3
+  name: Product_test3
+  photo_by: Photographer3
 
-# <% 40.times do |n| %>
-# test0<%=n+1%>:
-#  id: <%=n+1%>
-#  name:  <%= "Product_test #{n+1}" %>
-# <% end %>
+<% 23.times do |n| %>
+test0<%=n+4%>:
+  name:  <%= "Product_test #{n+4}" %>
+  photo_by: <%= "Photographer #{n+4}" %>
+<% end %>
 
