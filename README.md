@@ -41,8 +41,14 @@
   - [x] ルーティングの設定をする
   - [x] viewを変更する
   - [x] testを作る(sign up)
- - [ ] 【レイアウト変更】
-  - [ ] 
+ - [x] 【レイアウト変更】
+  - [x] アプリ名変更
+  - [x] 商品写真のカメラマン属性をProductモデルに追加
+  - [x] カメラマン属性(photo_by)情報追加
+  - [x] 商品写真保存
+  - [x] Composed関係作成
+  - [x] ユーザー一覧機能停止
+  - [x] その他レイアウト変更
 
 
 
@@ -114,7 +120,7 @@ $ rails server
 
 # 要件定義
 
-## モック図
+## 想定モック図
 ユーザーの初回ログイン時のHome画面は以下の通りです。
 ![image](figures/home_first_login_no1.png)
 画面右のボタンを押すと、テストが始まります。テスト画面は以下の通りです。
@@ -233,42 +239,45 @@ features {
 
 # 5つのテーブル情報を利用するSQL文
 ## ユーザーのdislike_productsの共通要素情報(2回以上選択された要素の、選択された回数、featu_id、feature)を表示するSQL文
-  select 
-    count(products.id) as product_id_num,
-    features.id as feature_id,
-    features.feature as feature
-  from products 
-  inner join dislikes 
-    on products.id=dislikes.product_id 
-  inner join users 
-    on dislikes.user_id=users.id
-  inner join composeds
-    on products.id=composeds.product_id
-  inner join features
-    on composeds.feature_id=features.id
-  where users.id=2
-  group by features.id
-  having product_id_num >= 2
 
+```SQL
+select 
+  count(products.id) as product_id_num,
+  features.id as feature_id
+from products 
+inner join dislikes 
+  on products.id=dislikes.product_id 
+inner join users 
+  on dislikes.user_id=users.id
+inner join composeds
+  on products.id=composeds.product_id
+inner join features
+  on composeds.feature_id=features.id
+where users.id=2
+group by features.id
+having product_id_num >= 2
+```
 ## ユーザーのdislike_productsの共通要素(2回以上選択された要素)を持たない商品一覧を表示するSQL文
-  select products.* from products
-    where products.id not in(
-      select composeds.product_id from composeds
-      inner join(    
-        select 
-          features.id as feature_id
-        from products 
-        inner join dislikes 
-          on products.id=dislikes.product_id 
-        inner join users 
-          on dislikes.user_id=users.id
-        inner join composeds
-          on products.id=composeds.product_id
-        inner join features
-          on composeds.feature_id=features.id
-        where users.id=2
-        group by features.id
-        having count(products.id) >=2
-      ) as FT
-      on composeds.feature_id=FT.feature_id
-    )
+```SQL
+select products.* from products
+  where products.id not in(
+    select composeds.product_id from composeds
+    inner join(    
+      select 
+        features.id as feature_id
+      from products 
+      inner join dislikes 
+        on products.id=dislikes.product_id 
+      inner join users 
+        on dislikes.user_id=users.id
+      inner join composeds
+        on products.id=composeds.product_id
+      inner join features
+        on composeds.feature_id=features.id
+      where users.id=2
+      group by features.id
+      having count(products.id) >=2
+    ) as FT
+    on composeds.feature_id=FT.feature_id
+  )
+```
