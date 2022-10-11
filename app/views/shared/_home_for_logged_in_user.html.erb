@@ -5,12 +5,16 @@
       </section>
     </aside>
     <div class="col-md-8">
-      <h2>Test</h2>
+      <h1>Test</h1>
       <h3>Please put "dislike" bottom when you don't like the product.</h3>
+      <p>You need to choose 3 products as "dislike".</p>
         <div class="test_products">
         <% @test_products.each do |test_product|%>
           <%= render partial: 'shared/test_product', locals: {test_product:test_product} %>
         <% end %>
+        </div>
+        <div class=center>
+          <%= link_to "Submit!", user_path(current_user), class: "btn btn-lg btn-primary" %>
         </div>
     </div>
   </div>
