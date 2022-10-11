@@ -11,6 +11,20 @@ $gray-medium-light: #eaeaea;
   box-sizing:         border-box;
 }
 
+/* background image */
+.main-container {
+  background-image: image-url('back_image.jpg');
+  background-size: cover;
+  width: 100%;
+  height: 100vh
+}
+// .jumbotron {
+//   background-image: image-url('back_image.jpg');
+//   background-size: cover;
+//   width: 100%;
+//   height: 100vh
+// }
+
 /* universal */
 
 body {padding-top: 60px}
@@ -226,6 +240,7 @@ input {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   margin-top: 6%;
   margin-bottom: 50px;
+  text-align : center
 }
 .test_products {
   display: grid;
@@ -233,6 +248,7 @@ input {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   margin-top: 6%;
   margin-bottom: 50px;
+  text-align : center
 }
 .recommend_products {
   display: grid;
@@ -240,4 +256,15 @@ input {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   margin-top: 6%;
   margin-bottom: 50px;
+  text-align : center
+}
+
+.photographer {
+  font-size: 14px;
+  padding: 0;
+  margin-top: 0%;
+  margin-bottom: 0px;
+  // text-align : right;
+  color: $gray-light;
+  margin-right: 10px
 }
