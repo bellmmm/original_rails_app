@@ -24,7 +24,7 @@ end
 Product.create!(name:"Sample_product01")
 
 # プロダクトをまとめて生成する
-98.times do |n|
+24.times do |n|
   if n < 8
     name  = "Sample_product0#{n+2}"
     Product.create!(name:  name)
