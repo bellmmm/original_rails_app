@@ -12,7 +12,6 @@ class UsersController < ApplicationController
     redirect_to root_url and return unless @user.activated && @user=current_user
     dislike_feat_sql = <<-"EOS"
       SELECT 
-        count(products.id) as product_id_num,
         features.id as feature_id,
         features.feature as feature
       FROM products 
@@ -26,7 +25,7 @@ class UsersController < ApplicationController
           ON composeds.feature_id=features.id
       WHERE users.id=#{@user.id}
       GROUP BY features.id
-      HAVING product_id_num >= 2
+      HAVING count(products.id) >= 2
     EOS
     @dislike_features = Feature.find_by_sql(dislike_feat_sql)
 
