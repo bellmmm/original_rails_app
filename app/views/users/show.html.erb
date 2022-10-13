@@ -27,15 +27,18 @@
      </ul>
     </div>
   </section>
-
+  <section class="row center">
     <h3>Products <%=@user.name%> will love</h3>
+    <div class="col-md-2"></div>
     <div class="col-md-8">      
       <ul class="recommend_products">
         <% @recommend_products.each do |recommend_product| %>
           <%= render partial: 'shared/recommend_product', locals: {recommend_product:recommend_product} %>
         <% end %>
-     </ul>
+      </ul>
+      <%= will_paginate @recommend_products %>  
     </div>
-  <%= will_paginate @recommend_products %>  
+    <div class="col-md-2"></div>
+  </section>
 </div>
   

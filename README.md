@@ -33,7 +33,7 @@
 - [x] 【products/dislikes/composed/featuresモデル間の連携】
   - [x] viewを作る(dislikeテストで重複して選択された要素：ユーザーのdislikes要素を持たない商品をお勧め商品として一覧表示する)
   - [x] testを作る(ログイン後のユーザーのユーザーのdislikes要素、dislike要素を除いた商品を表示)
- - [ ] 【guestログイン機能の作成】
+- [x] 【guestログイン機能の作成】
   - [x] usersテーブルにゲストユーザー判別用のカラム”guest”を追加する
   - [x] ゲストユーザーのみバリデーションを解除する
   - [x] ゲストユーザーを作成するメソッドを追加する
@@ -41,7 +41,7 @@
   - [x] ルーティングの設定をする
   - [x] viewを変更する
   - [x] testを作る(sign up)
- - [x] 【レイアウト変更】
+- [x] 【レイアウト変更】
   - [x] アプリ名変更
   - [x] 商品写真のカメラマン属性をProductモデルに追加
   - [x] カメラマン属性(photo_by)情報追加
@@ -53,7 +53,7 @@
 
 
 ## アプリケーション名
-「Original App」
+「PICK OUT」
 
 ## アプリケーション概要
 アカウントを作成したユーザーに対し、テストを通してユーザーの服の好みを判断し、ユーザーの好みに合わせて商品を表示するアプリケーションです。
@@ -120,7 +120,7 @@ $ rails server
 
 # 要件定義
 
-## 想定モック図
+## 想定モック図(実際のビューはここから変更が生じています。)
 ユーザーの初回ログイン時のHome画面は以下の通りです。
 ![image](figures/home_first_login_no1.png)
 画面右のボタンを押すと、テストが始まります。テスト画面は以下の通りです。
@@ -171,7 +171,7 @@ features {
 ### usersテーブル
 ユーザーのid、名前、e-mailアドレス等を保持しているテーブルです。
 ### productsテーブル
-商品のidと名前を保持しているテーブルです。
+商品のid、名前、撮影者名を保持しているテーブルです。
 ### featuresテーブル
 服の特徴(例：ラウンドネック)とそのidを保持しているテーブルです。
 ### dislikesテーブル
@@ -238,24 +238,24 @@ features {
 
 
 # 5つのテーブル情報を利用するSQL文
-## ユーザーのdislike_productsの共通要素情報(2回以上選択された要素の、選択された回数、featu_id、feature)を表示するSQL文
+## ユーザーのdislike_productsの共通要素情報(2回以上選択された要素の、featu_id、feature)を表示するSQL文
 
 ```SQL
-select 
-  count(products.id) as product_id_num,
-  features.id as feature_id
-from products 
-inner join dislikes 
-  on products.id=dislikes.product_id 
-inner join users 
-  on dislikes.user_id=users.id
-inner join composeds
-  on products.id=composeds.product_id
-inner join features
-  on composeds.feature_id=features.id
-where users.id=2
-group by features.id
-having product_id_num >= 2
+SELECT 
+  features.id as feature_id,
+  features.feature as feature
+FROM products 
+  INNER JOIN dislikes 
+    ON products.id=dislikes.product_id 
+  INNER JOIN users 
+    ON dislikes.user_id=users.id
+  INNER JOIN composeds
+    ON products.id=composeds.product_id
+  INNER JOIN features
+    ON composeds.feature_id=features.id
+WHERE users.id=#{@user.id}
+GROUP BY features.id
+HAVING count(products.id) >= 2
 ```
 ## ユーザーのdislike_productsの共通要素(2回以上選択された要素)を持たない商品一覧を表示するSQL文
 ```SQL
@@ -274,7 +274,7 @@ select products.* from products
         on products.id=composeds.product_id
       inner join features
         on composeds.feature_id=features.id
-      where users.id=2
+      where users.id=#{@user.id}
       group by features.id
       having count(products.id) >=2
     ) as FT

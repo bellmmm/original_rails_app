@@ -279,5 +279,8 @@ DEPENDENCIES
   webpacker (= 4.0.7)
   will_paginate (= 3.3.1)
 
+RUBY VERSION
+   ruby 2.6.10p210
+
 BUNDLED WITH
-   2.3.15
+   2.3.21
