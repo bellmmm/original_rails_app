@@ -153,7 +153,8 @@ dislikes {
 
 products {
   integer id PK
-  varchar name 
+  string name
+  string photo_by 
 }
 
 composed {
